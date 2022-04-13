@@ -22,6 +22,7 @@ export default {
   methods: {
     save () {
       // this.$http.post()
+      // P5
     }
   }
 }
