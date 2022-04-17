@@ -5,12 +5,15 @@
 </template>
 
 <script>
+  import badgeMix from '../../minins/tabbar-badge.js'
+  
 	export default {
 		data() {
 			return {
 				
 			};
-		}
+		},
+    mixins: [badgeMix]
 	}
 </script>
 

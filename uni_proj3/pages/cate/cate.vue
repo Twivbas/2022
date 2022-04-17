@@ -23,6 +23,8 @@
 </template>
 
 <script>
+  import badgeMix from '../../minins/tabbar-badge.js'
+  
   export default {
     data() {
       return {
@@ -34,6 +36,7 @@
         scrollTop: 0  // 滚动条距离顶部的距离
       };
     },
+    mixins: [badgeMix],
     onLoad() {
       // 获取当前系统的信息
       const sysInfo = uni.getSystemInfoSync()
