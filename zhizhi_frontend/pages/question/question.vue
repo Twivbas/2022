@@ -68,6 +68,12 @@
         })
       },
       writeAnswer(question_id) {
+        if (!uni.getStorageSync('access_token')) {
+          uni.switchTab({
+          	url: '/pages/my/my'
+          })
+          return;
+        }
         uni.navigateTo({
           url: `/pages/writeAnswer/writeAnswer?question_id=${question_id}`
         })
