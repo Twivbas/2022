@@ -1,0 +1,69 @@
+@charset "UTF-8";
+/* 水平间距 */
+/* 水平间距 */
+.header {
+  background-color: #fff;
+  padding: 20rpx;
+}
+.header .desc {
+  font-size: 24rpx;
+  margin: 20rpx 0;
+}
+.header .reply {
+  position: relative;
+  left: 78%;
+}
+.middle {
+  margin: 10rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.middle .switch {
+  color: #909090;
+  display: flex;
+}
+.middle .switch .icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 8rpx;
+}
+.answers .list {
+  background-color: #fff;
+  margin-top: 20rpx;
+  box-shadow: 0rpx 8rpx 5rpx #eee;
+  padding: 16rpx;
+}
+.answers .list .author {
+  display: flex;
+  align-items: center;
+}
+.answers .list .author .avatar {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  margin-right: 12rpx;
+}
+.answers .list .author .nickName {
+  color: #909090;
+  font-size: 26rpx;
+}
+.answers .list .creator {
+  color: #909090;
+  font-size: 24rpx;
+}
+.answers .list .answer {
+  margin: 10rpx 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.answers .list .bottom {
+  color: #909090;
+  font-size: 24rpx;
+}
+.answers .list .bottom .answerTime {
+  margin-left: 10rpx;
+}
+

@@ -1,0 +1,53 @@
+@charset "UTF-8";
+/* 水平间距 */
+/* 水平间距 */
+.login {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50rpx;
+}
+.login text {
+  color: #c2c2c2;
+  font-size: 40rpx;
+}
+.login .login {
+  width: 340rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  color: #fff;
+  background-color: #3cb600;
+  margin-top: 70rpx;
+  border-radius: 5px;
+}
+.login .avatar {
+  display: block;
+  width: 90px;
+  height: 90px;
+  border-radius: 45px;
+  border: 1px solid #fff;
+  margin-bottom: 20rpx;
+}
+.login .info {
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 60rpx;
+}
+.login .info .grid {
+  text-align: center;
+}
+.login .viewed {
+  width: 90%;
+  margin-top: 50rpx;
+}
+.login .viewed .title {
+  margin-bottom: 20rpx;
+  font-size: 36rpx;
+}
+.login .viewed .question {
+  padding-left: 10rpx;
+  padding-top: 20rpx;
+}
+
