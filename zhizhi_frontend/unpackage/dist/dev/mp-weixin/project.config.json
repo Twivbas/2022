@@ -30,10 +30,11 @@
       "outputPath": ""
     },
     "disableUseStrict": false,
-    "useCompilerPlugins": false
+    "useCompilerPlugins": false,
+    "minifyWXML": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.25.2",
+  "libVersion": "2.26.0",
   "appid": "wx2e4e8e11d2b08391",
   "projectname": "zhizhi_frontend",
   "condition": {
