@@ -89,9 +89,11 @@
         askQuestion(payload).then(res => {
           // console.log(res)
           // 成功后跳转问题页面，需要question_id
+          // 跳转到add页面
           const question_id = res.data.question_id
-          uni.navigateTo({
-            url: `/pages/question/question?question_id=${question_id}`
+          uni.switchTab({
+            // url: `/pages/question/question?question_id=${question_id}`
+            url: `/pages/add/add`
           })
         }).catch(err => console.log(err))
       },

@@ -76,7 +76,7 @@
         getQuestions().then(res => {
           this.questions = res.data
           this.question = this.questions.filter(q => q.question_id === this.question_id)[0]
-        }, err => console.log(err))
+        }).catch(err => console.log(err))
       },
       // editor组件函数
       readOnlyChange() {
@@ -143,10 +143,23 @@
         }
         answerQuestion(payload).then(res => {
           console.log(res)
-        }).catch(err => console.log(err))
-        uni.navigateTo({
-          url: `/pages/question/question?question_id=${this.question_id}`
+          uni.navigateTo({
+            url: `/pages/question/question?question_id=${this.question_id}`
+          })
+        }).catch(err => {
+          console.log(err)
+          uni.showToast({
+            title: `${err}`.slice(11),
+            icon: 'none',
+            duration: 1500
+          })
+          setTimeout(() => {
+            uni.navigateBack({
+              delta: 1
+            })
+          }, 1600)
         })
+        
       },
       cancel() {
         uni.navigateBack({

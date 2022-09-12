@@ -47,8 +47,8 @@
       },
       getData() {
         getQuestions().then(res => {
-          this.questions = res.data
-        },err => console.log(err))
+          this.questions = res.data.reverse()
+        }).catch(err => console.log(err))
       },
     }
 	}
@@ -67,7 +67,7 @@
 	position: sticky;
 	top: 0;
 	background-color: #eee;
-	
+	z-index: 2;
 	
 	.ask-text {
 		color: #55aaff;
@@ -104,6 +104,7 @@
 			position: relative;
 			left: 80%;
 			margin-top: 10rpx;
+      // z-index: 0;
 		}
 	}
 }

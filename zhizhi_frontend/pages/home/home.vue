@@ -3,10 +3,11 @@
     <view class="header">
       <view class="title" @click="run2">热榜</view>
       <view class="title" @click="run">推荐</view>
-      
+      <uni-transition ref="ani"
+        :styles="{'width':'40px','height':'3px','backgroundColor':'blue','margin-left': 'calc(25vw - 20px)', 'z-index': '999'}"
+        :show="show" class="mark" />
     </view>
-    <uni-transition ref="ani" :styles="{'width':'40px','height':'3px','backgroundColor':'blue','margin-left': 'calc(25% - 18px)'}" :show="show"  />
-    
+
     <view class="container">
       <view class="recommendation" v-show="!isHotList">
         <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
@@ -85,12 +86,11 @@
         this.isHotList = false
         this.$refs.ani.step({
           translateX: `${this.wh/2}px`,
-        },
-        {
+        }, {
           timingFunction: 'ease-in',
           duration: 200
         })
-        this.$refs.ani.run(()=>{
+        this.$refs.ani.run(() => {
           // console.log('点击推荐动画支持完毕')
         })
       },
@@ -98,12 +98,11 @@
         this.isHotList = true
         this.$refs.ani.step({
           translateX: '0px',
-        },
-        {
+        }, {
           timingFunction: 'ease-in',
           duration: 200
         })
-        this.$refs.ani.run(()=>{
+        this.$refs.ani.run(() => {
           // console.log('点击热榜动画支持完毕')
         })
       }
@@ -117,6 +116,7 @@
     position: sticky;
     top: 0;
     z-index: 999;
+    flex-wrap: wrap;
 
     .title {
       width: 50%;
@@ -124,6 +124,7 @@
       text-align: center;
       background-color: #FFF;
       padding: 20rpx 0;
+      flex-shrink: 0;
     }
   }
 
@@ -134,7 +135,8 @@
     .recommendation {
       width: 100%;
       height: calc(100vh - 100rpx);
-      .scroll-Y  {
+
+      .scroll-Y {
         height: 100vh;
       }
 
@@ -151,7 +153,7 @@
 
         .answer {
           font-size: 14px;
-          min-height: 120rpx;
+          min-height: 100rpx;
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
@@ -165,8 +167,8 @@
       width: 100%;
       background-color: #FFF;
       margin-top: 10rpx;
-      
-      .scroll-Y  {
+
+      .scroll-Y {
         height: 510px;
       }
 
@@ -179,8 +181,6 @@
       }
     }
 
-    .actived {
-      
-    }
+    .actived {}
   }
 </style>

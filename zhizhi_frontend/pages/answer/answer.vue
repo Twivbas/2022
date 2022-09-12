@@ -80,8 +80,16 @@
         likeAnswer(payload).then(res => {
           console.log(res)
           this.getData()
-        }, err => console.log(err))
-        this.isLiked = !this.isLiked
+          this.isLiked = !this.isLiked
+        }).catch(err => {
+          console.log('err', err)
+          uni.showToast({
+          	title: `${err}`.slice(11),
+            icon: 'none',
+          	duration: 1500
+          });
+        })
+        
       },
       writeAnswer(question_id) {
         if (!uni.getStorageSync('access_token')) {
