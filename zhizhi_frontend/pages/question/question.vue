@@ -18,7 +18,8 @@
           <image :src="item.avatarUrl" class="avatar"></image>
           <view class="nickName">{{item.nickName}}</view>
         </view>
-        <view class="answer" v-html="item.answer">{{item.answer}}</view>
+        <!-- <view class="answer" v-html="item.answer">{{item.answer}}</view> -->
+        <quesAnswers :answer="item.answer"></quesAnswers>
         <view class="bottom">
           <text class="like">{{item.likes}}赞同 · </text>
           <text class="answerTime">{{item.answerTime | formatTime}}</text>
@@ -157,14 +158,7 @@
       color: #909090;
       font-size: 24rpx;
     }
-    .answer {
-      margin: 10rpx 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
+    
     .bottom {
       color: #909090;
       font-size: 24rpx;

@@ -1,5 +1,5 @@
-// const host = `https://www.twivbas.com:8081`
-const host = 'https://localhost:8081'
+const host = `https://www.twivbas.com:8081`
+// const host = 'https://localhost:8081'
 
 // let baseUrl = `${host}/zhizhi`
 let baseUrl = `${host}`

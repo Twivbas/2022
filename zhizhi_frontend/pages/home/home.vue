@@ -14,8 +14,8 @@
           <view class="list" v-for="item in questions" :key="item._id"
             @click="seeAnswer(item.question_id, item.answers[0].answer_id)" v-if="item.answers[0].answer_id">
             <view class="question">{{item.title}}</view>
-            <view class="answer" v-html="item.answers[0].answer">{{item.answers[0].answer}}</view>
-            <!-- v-html="item.answers[0].answer" -->
+            <!-- <view class="answer" v-html="item.answers[0].answer">{{item.answers[0].answer}}</view> -->
+            <listAnswers :answer="item.answers[0].answer"></listAnswers>
           </view>
         </scroll-view>
       </view>
@@ -130,15 +130,12 @@
 
   .container {
     display: flex;
-    height: 100vh;
+    height: calc(100vh - 96rpx);
 
     .recommendation {
       width: 100%;
-      height: calc(100vh - 100rpx);
 
-      .scroll-Y {
-        height: 100vh;
-      }
+      .scroll-Y {}
 
       .list {
         margin: 10rpx 8rpx;
@@ -150,16 +147,6 @@
           padding-bottom: 10rpx;
 
         }
-
-        .answer {
-          font-size: 14px;
-          min-height: 100rpx;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-        }
       }
     }
 
@@ -169,7 +156,7 @@
       margin-top: 10rpx;
 
       .scroll-Y {
-        height: 510px;
+        height: 100%;
       }
 
       .list {

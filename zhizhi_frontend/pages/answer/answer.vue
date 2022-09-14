@@ -10,7 +10,8 @@
         <image :src="answer.avatarUrl" class="avatar"></image>
         <view class="nickName">{{answer.nickName}}</view>
       </view>
-      <view class="answer" v-html="answer.answer">{{answer.answer}}</view>
+      <!-- <view class="answer" v-html="answer.answer">{{answer.answer}}</view> -->
+      <readMore :answer="answer.answer"></readMore>
       <view class="bottom">
         <text>发布于{{answer.answerTime | formatTime }} ·</text>
         <text style="margin-left: 10rpx;">著作权归作者所有</text>
@@ -161,15 +162,10 @@
       margin-right: 18rpx;
     }
     .nickName {
-      // color: #909090;
       font-size: 30rpx;
     }
   }
   
-  .answer {
-    // min-height: 700rpx;
-    line-height: 50rpx;
-  }
   .bottom {
     margin-top: 40rpx;
     color: #909090;
