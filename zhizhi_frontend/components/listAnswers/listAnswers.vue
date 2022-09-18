@@ -4,7 +4,7 @@
     <!-- <view class="answer" v-html="answer">{{answer}}</view> -->
     <view class="answer" v-html="wordAnswer" >{{wordAnswer}}</view>
     <view class="photos" v-if="photoSrc">
-      <image :src="photoSrc" style="width: 100%;" mode="widthFix"></image>
+      <image :src="photoSrc" style="width: 100%;height: 120rpx;" mode="scaleToFill"></image>
     </view>
     
   </view>
@@ -53,7 +53,7 @@
     .answer {
       font-size: 14px;
       width: 100%;
-      height: 120rpx;
+      height: 108rpx;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;

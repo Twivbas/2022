@@ -93,7 +93,13 @@
           const question_id = res.data.question_id
           uni.switchTab({
             // url: `/pages/question/question?question_id=${question_id}`
-            url: `/pages/add/add`
+            url: `/pages/add/add`,
+            success() {
+              // 页面跳转成功后刷新
+              let page = getCurrentPages().pop()
+              if (!page) return;
+              page.onLoad()
+            }
           })
         }).catch(err => console.log(err))
       },
@@ -126,7 +132,7 @@
       	this.formats = formats
       },
       onEditorInput(e) {
-        console.log('e', e)
+        // console.log('e', e)
         // 加上防抖
         clearTimeout(this.timer);
         this.timer = setTimeout(() => {

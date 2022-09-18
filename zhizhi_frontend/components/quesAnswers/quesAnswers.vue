@@ -17,14 +17,19 @@
         // imageSrc: []
       };
     },
-    props: ['answer'],
+    props: {
+      answer: {
+        type: String,
+        default: ''
+      }
+    },
     computed: {
       photoSrc: function() {
         let str = this.answer
         let length = this.answer.indexOf('img')
         // 如果包含图片，且回答中只含一个图片
         // 把rich-text img换成image, 目前只能展示一张图片的回答
-        if (length > 0) {
+        if (length && length > 0) {
           let startPtag = this.answer.lastIndexOf('<p', length)
           let endPtag = this.answer.indexOf('/p>', length)
           let srcStart = this.answer.indexOf('https')
