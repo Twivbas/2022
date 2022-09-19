@@ -1,9 +1,7 @@
 <template>
   <view class="container">
-    <view class="answer " v-html="answer" v-if="!flag">{{answer}}</view>
-    <view class="" v-else>
-      <view class="answer lineLimit" v-html="answer">{{answer}}</view>
-      <view class="readMore" @click="handleClick">
+      <view id="answer" class="answer" :class="isOverflow?'lineLimit': ''" v-html="answer">{{answer}}</view>
+      <view class="readMore" @click="handleClick" v-if="isOverflow">
         阅读全文
         <uni-icons type="bottom" size="16" color="blue"></uni-icons>
       </view>
@@ -16,25 +14,28 @@
     name: "readMore",
     data() {
       return {
-        flag: false
+        isOverflow: false
       };
     },
-    computed: {
-      isAnswerTooMuch: function() {
-        return this.flag
+    props: {
+      answer: {
+        type: String,
+        default: ''
       }
     },
-    props: ['answer'],
-    mounted() {
-      const query = uni.createSelectorQuery().in(this);
-      query.select('.answer').boundingClientRect(data => {
-        // console.log(data)
-        this.flag = +data.height > 182
-      }).exec();
+    watch: {
+      answer: function () {
+        const query = uni.createSelectorQuery().in(this);
+        query.select('#answer').boundingClientRect(data => {
+          this.isOverflow = +data.height > 85
+          // console.log(data, this.answer)
+        }).exec();
+      }
     },
     methods: {
       handleClick() {
-        this.flag = false
+        this.isOverflow = false
+        console.log(this.isOverflow)
       }
     }
   }
@@ -44,30 +45,35 @@
   .readMore {
     color: blue;
     text-align: center;
-    height: 200rpx;
+    height: 160rpx;
+    width: 100%;
     background-color: white;
+    // margin-top: -200rpx;
+    // z-index: 9;
+    // position: absolute;
   }
   
   .readMore::before {
     display: block;
     content: '';
     width: 100%;
-    height: 100rpx;
+    height: 50rpx;
     background-color: white;
     opacity: 0.35;
-    margin-top: -98rpx;
+    margin-top: -48rpx;
   }
 
   .lineLimit {
-    height: 350rpx;
+    height: 150rpx;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 7;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
 
   .answer {
     line-height: 50rpx;
+    // height: 200rpx;
   }
 </style>

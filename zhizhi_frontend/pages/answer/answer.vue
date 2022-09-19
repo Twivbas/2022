@@ -2,7 +2,8 @@
   <view>
     <view class="header">
       <view class="title">{{question.title}}</view>
-      <view class="desc" v-html="question.desc">{{question.desc}}</view>
+      <!-- <view class="desc" v-html="question.desc">{{question.desc}}</view> -->
+      <readMore :answer="question.desc"></readMore>
       <button type="default" size="mini" plain class="reply" @click="writeAnswer(question.question_id)">写回答</button>
     </view>
     <view class="main">
@@ -134,6 +135,11 @@
 .header {
   background-color: #fff;
   padding: 20rpx;
+  
+  .title {
+    font-size: 20px;
+    margin-bottom: 16rpx;
+  }
   
   .desc {
     font-size: 24rpx;
