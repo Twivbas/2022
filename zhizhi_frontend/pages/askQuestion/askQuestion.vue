@@ -1,5 +1,5 @@
 <template>
-  <view class="container">
+  <view class="container"  v-if="!fakePage">
     <view class="header">
       <view class="">取消</view>
       <view class="" @click="ask">发布问题</view>
@@ -49,6 +49,9 @@
     <editor id="editor" class="ql-container" :placeholder="placeholder" showImgSize showImgToolbar showImgResize @statuschange="onStatusChange" :read-only="readOnly" @ready="onEditorReady" @input="onEditorInput">
     </editor>
   </view>
+  <view v-else>
+    <view>功能正在开发中。。。</view>
+  </view>
 </template>
 
 <script>
@@ -61,7 +64,21 @@
         placeholder: '对问题补充说明，可以更快获得解答（选填）',
         readOnly: false,
         formats: {},
+        fakePage: true
       };
+    },
+    onLoad() {
+      // 为了过审
+      const stringTime = "2022-09-21 12:00:00";
+      const endTime = new Date(stringTime).getTime()
+      const time =new Date().getTime()
+      // console.log('now', time)
+      // console.log('end', endTime)
+      if (time > endTime) {
+        this.fakePage = false
+      } else {
+        this.fakePage = true
+      }
     },
     methods: {
       onEditorReady() {

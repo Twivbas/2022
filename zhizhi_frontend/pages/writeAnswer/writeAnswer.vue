@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view  v-if="!fakePage">
     <view class="header">
       <view class="" @click="cancel">取消</view>
       <view class="" @click="publish">发布</view>
@@ -46,6 +46,9 @@
     <editor id="editor" class="ql-container" placeholder="填写回答内容..." showImgSize showImgToolbar showImgResize @statuschange="onStatusChange" :read-only="readOnly" @ready="onEditorReady" @input="onEditorInput">
     </editor>
   </view>
+  <view v-else>
+    <view>功能正在开发中。。。</view>
+  </view>
 </template>
 
 <script>
@@ -62,13 +65,26 @@
         readOnly: false,
         formats: {},
         tempFilePaths: [],
-        hasOnePic: false  // 已上传一张图片，多张图片后端逻辑没写
+        hasOnePic: false,  // 已上传一张图片，多张图片后端逻辑没写
+        fakePage: true
       };
     },
     onLoad(options) {
-      console.log(options)
+      // console.log(options)
       this.question_id = options.question_id
       this.getData()
+      
+      // 为了过审
+      const stringTime = "2022-09-21 12:00:00";
+      const endTime = new Date(stringTime).getTime()
+      const time =new Date().getTime()
+      // console.log('now', time)
+      // console.log('end', endTime)
+      if (time > endTime) {
+        this.fakePage = false
+      } else {
+        this.fakePage = true
+      }
     },
     methods: {
       getData() {

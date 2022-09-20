@@ -28,6 +28,7 @@
         </scroll-view>
       </view>
     </view>
+
   </view>
 </template>
 
@@ -52,7 +53,6 @@
       this.setData()
       const sysInfo = uni.getSystemInfoSync()
       this.wh = sysInfo.windowWidth
-
     },
     onShow() {
       this.setData()
