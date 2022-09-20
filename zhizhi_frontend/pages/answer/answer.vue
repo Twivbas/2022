@@ -40,7 +40,9 @@
         question: {
           answers: []
         },
-        answer: {},
+        answer: {
+          answer: ''
+        },
         isLiked: false,
         pos: 0,
         nextClickCount: 0,

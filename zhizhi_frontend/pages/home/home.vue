@@ -22,7 +22,7 @@
       <view class="hotList actived" v-show="isHotList">
         <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
           <view class="list" v-for="(item, index) in hotlist" :key="index" @click="seeQuestion(item._id)">
-            <view class="number">{{`0${index+1}`}}</view>
+            <view class="number">{{index < 9 ? `0${index+1}`: `${index+1}`}}</view>
             <view class="question">{{item.question[0].title}}</view>
           </view>
         </scroll-view>
@@ -134,11 +134,12 @@
 
     .recommendation {
       width: 100%;
+      // margin-top: 6rpx;
 
       .scroll-Y {}
 
       .list {
-        margin: 10rpx 8rpx;
+        margin: 8rpx;
         padding: 18rpx 20rpx;
         box-shadow: 0px 5px 5px #eee;
         background-color: #FFF;
@@ -153,7 +154,7 @@
     .hotList {
       width: 100%;
       background-color: #FFF;
-      margin-top: 10rpx;
+      margin-top: 8rpx;
 
       .scroll-Y {
         height: 100%;
