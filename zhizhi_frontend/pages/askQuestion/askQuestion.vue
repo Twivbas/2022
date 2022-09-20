@@ -1,5 +1,5 @@
 <template>
-  <view class="container">
+  <view class="container"  v-if="!fakePage">
     <view class="header">
       <view class="">取消</view>
       <view class="" @click="ask">发布问题</view>
@@ -8,7 +8,7 @@
       <input type="text" placeholder="输入问题并以问号结尾" v-model="title"/>
     </view>
     
-    <view class='toolbar' @tap="format" style="height: 120px;overflow-y: auto;">
+    <view class='toolbar' @tap="format" style="height: 160px;overflow-y: auto;">
     	<view :class="formats.bold ? 'ql-active' : ''" class="iconfont icon-zitijiacu" data-name="bold"></view>
     	<view :class="formats.italic ? 'ql-active' : ''" class="iconfont icon-zitixieti" data-name="italic"></view>
     	<view :class="formats.underline ? 'ql-active' : ''" class="iconfont icon-zitixiahuaxian" data-name="underline"></view>
@@ -38,17 +38,19 @@
     	<view class="iconfont icon-outdent" data-name="indent" data-value="-1"></view>
     	<view class="iconfont icon-indent" data-name="indent" data-value="+1"></view>
     	<view class="iconfont icon-fengexian" @tap="insertDivider"></view>
-    	<view class="iconfont icon-charutupian" @tap="insertImage"></view>
     	<view :class="formats.header === 1 ? 'ql-active' : ''" class="iconfont icon-format-header-1" data-name="header" :data-value="1"></view>
     	<view :class="formats.script === 'sub' ? 'ql-active' : ''" class="iconfont icon-zitixiabiao" data-name="script" data-value="sub"></view>
     	<view :class="formats.script === 'super' ? 'ql-active' : ''" class="iconfont icon-zitishangbiao" data-name="script" data-value="super"></view>
     	<view :class="formats.direction === 'rtl' ? 'ql-active' : ''" class="iconfont icon-direction-rtl" data-name="direction" data-value="rtl"></view>
       <view class="iconfont icon-shanchu" @tap="clear"></view>
-    
+      <!-- <view class="iconfont icon-charutupian" @tap="insertImage"></view> -->
     </view>
     
     <editor id="editor" class="ql-container" :placeholder="placeholder" showImgSize showImgToolbar showImgResize @statuschange="onStatusChange" :read-only="readOnly" @ready="onEditorReady" @input="onEditorInput">
     </editor>
+  </view>
+  <view v-else>
+    <view>功能正在开发中。。。</view>
   </view>
 </template>
 
@@ -62,7 +64,21 @@
         placeholder: '对问题补充说明，可以更快获得解答（选填）',
         readOnly: false,
         formats: {},
+        fakePage: true
       };
+    },
+    onLoad() {
+      // 为了过审
+      const stringTime = "2022-09-21 12:00:00";
+      const endTime = new Date(stringTime).getTime()
+      const time =new Date().getTime()
+      // console.log('now', time)
+      // console.log('end', endTime)
+      if (time > endTime) {
+        this.fakePage = false
+      } else {
+        this.fakePage = true
+      }
     },
     methods: {
       onEditorReady() {

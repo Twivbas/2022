@@ -51,14 +51,15 @@
     height: 140rpx;
     
     .answer {
-      font-size: 14px;
+      font-size: 28rpx;
       width: 100%;
-      height: 108rpx;
+      height: 114rpx;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+      padding-right: 8rpx;
     }
     .photos {
       width: 300rpx;

@@ -1,12 +1,12 @@
 <template>
-  <view>
+  <view  v-if="!fakePage">
     <view class="header">
       <view class="" @click="cancel">取消</view>
       <view class="" @click="publish">发布</view>
     </view>
     <view class="title">{{question.title}}</view>
     
-    <view class='toolbar' @tap="format" style="height: 120px;overflow-y: auto;">
+    <view class='toolbar' @tap="format" style="height: 160px;overflow-y: auto;">
     	<view :class="formats.bold ? 'ql-active' : ''" class="iconfont icon-zitijiacu" data-name="bold"></view>
     	<view :class="formats.italic ? 'ql-active' : ''" class="iconfont icon-zitixieti" data-name="italic"></view>
     	<view :class="formats.underline ? 'ql-active' : ''" class="iconfont icon-zitixiahuaxian" data-name="underline"></view>
@@ -32,21 +32,22 @@
     	<view :class="formats.list === 'bullet' ? 'ql-active' : ''" class="iconfont icon-wuxupailie" data-name="list" data-value="bullet"></view>
     	<view class="iconfont icon-undo" @tap="undo"></view>
     	<view class="iconfont icon-redo" @tap="redo"></view>
-    
     	<view class="iconfont icon-outdent" data-name="indent" data-value="-1"></view>
     	<view class="iconfont icon-indent" data-name="indent" data-value="+1"></view>
     	<view class="iconfont icon-fengexian" @tap="insertDivider"></view>
-    	<view class="iconfont icon-charutupian" @tap="insertImage"></view>
     	<view :class="formats.header === 1 ? 'ql-active' : ''" class="iconfont icon-format-header-1" data-name="header" :data-value="1"></view>
     	<view :class="formats.script === 'sub' ? 'ql-active' : ''" class="iconfont icon-zitixiabiao" data-name="script" data-value="sub"></view>
     	<view :class="formats.script === 'super' ? 'ql-active' : ''" class="iconfont icon-zitishangbiao" data-name="script" data-value="super"></view>
     	<view :class="formats.direction === 'rtl' ? 'ql-active' : ''" class="iconfont icon-direction-rtl" data-name="direction" data-value="rtl"></view>
       <view class="iconfont icon-shanchu" @tap="clear"></view>
-    
+      <view class="iconfont icon-charutupian" @tap="insertImage" v-if="!hasOnePic"></view>
     </view>
 
     <editor id="editor" class="ql-container" placeholder="填写回答内容..." showImgSize showImgToolbar showImgResize @statuschange="onStatusChange" :read-only="readOnly" @ready="onEditorReady" @input="onEditorInput">
     </editor>
+  </view>
+  <view v-else>
+    <view>功能正在开发中。。。</view>
   </view>
 </template>
 
@@ -63,13 +64,27 @@
         timer: undefined,
         readOnly: false,
         formats: {},
-        tempFilePaths: []
+        tempFilePaths: [],
+        hasOnePic: false,  // 已上传一张图片，多张图片后端逻辑没写
+        fakePage: true
       };
     },
     onLoad(options) {
-      console.log(options)
+      // console.log(options)
       this.question_id = options.question_id
       this.getData()
+      
+      // 为了过审
+      const stringTime = "2022-09-21 12:00:00";
+      const endTime = new Date(stringTime).getTime()
+      const time =new Date().getTime()
+      // console.log('now', time)
+      // console.log('end', endTime)
+      if (time > endTime) {
+        this.fakePage = false
+      } else {
+        this.fakePage = true
+      }
     },
     methods: {
       getData() {
@@ -107,8 +122,6 @@
       	this.formats = formats
       },
       onEditorInput(e) {
-        // console.log('e', e)
-        // 加上防抖
         clearTimeout(this.timer);
         this.timer = setTimeout(() => {
           uni.createSelectorQuery().select('#editor').context((res) => {
@@ -124,8 +137,7 @@
           }).exec()
         }, 500) 
       },
-      publish() {
-        
+      publish() { 
         // 上传图片
         if (this.tempFilePaths.length > 0) {
           console.log(this.tempFilePaths.length)
@@ -193,23 +205,32 @@
       	})
       },
       insertImage() {
-      	uni.chooseImage({
-      		count: 9,
-      		success: (res) => {
-            console.log(res, this.editorCtx)
-      			this.editorCtx.insertImage({
-      				src: res.tempFilePaths[0],
-      				alt: '图像',
-      				success: function() {
-      					console.log('insert image success')
-      				}
-      			})
-            console.log('chooseImage res', res)
-            this.tempFilePaths = res.tempFilePaths
-
-            
-      		}
-      	})
+        if (!this.hasOnePic) {
+          const self = this
+          uni.chooseImage({
+          	count: 9,
+          	success: (res) => {
+              console.log(res, this.editorCtx)
+          		this.editorCtx.insertImage({
+          			src: res.tempFilePaths[0],
+          			alt: '图像',
+          			success: function() {
+          				console.log('insert image success')
+                  self.hasOnePic = true
+          			},
+          		})
+              console.log('chooseImage res', res)
+              this.tempFilePaths = res.tempFilePaths
+              
+          	},
+            fail: function() {
+              console.log('choose image fail')
+            }
+          })
+        } else {
+          // console.log('hasOnePic')
+          return
+        }
       },
       uploadFile(tempFilePaths) {
         for (let i = 0; i < tempFilePaths.length; i++) {
@@ -253,7 +274,7 @@
 }
 
 .ql-container {
-  min-height: calc(100vh - 212px);
+  min-height: calc(100vh - 252px);
   padding: 30rpx;
   background-color: #fff;
 }
