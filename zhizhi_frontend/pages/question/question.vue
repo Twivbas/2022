@@ -3,7 +3,7 @@
     <view class="header">
       <view class="title">{{question.title}}</view>
       <!-- <view class="desc" v-html="question.desc">{{question.desc}}</view> -->
-      <readMore :answer="question.desc"></readMore>
+      <readMore :answer="question.desc ? question.desc : ''"></readMore>
       <button type="default" size="mini" plain class="reply" @click="writeAnswer(question.question_id)">写回答</button>
     </view>
     <view class="middle">

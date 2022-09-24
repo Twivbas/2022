@@ -40,7 +40,7 @@ export default {
 			default: 300
 		},
 		styles: {
-			type: Object,
+			type: Object| null,
 			default() {
 				return {}
 			}
