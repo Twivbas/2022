@@ -2,8 +2,7 @@
   <view>
     <view class="header">
       <view class="title">{{question.title}}</view>
-      <!-- <view class="desc" v-html="question.desc">{{question.desc}}</view> -->
-      <readMore :answer="question.desc"></readMore>
+      <readMore :answer="question.desc ? question.desc : ''"></readMore>
       <button type="default" size="mini" plain class="reply" @click="writeAnswer(question.question_id)">写回答</button>
     </view>
     <view class="main">
@@ -12,7 +11,7 @@
         <view class="nickName">{{answer.nickName}}</view>
       </view>
       <!-- <view class="answer" v-html="answer.answer">{{answer.answer}}</view> -->
-      <readMore :answer="answer.answer"></readMore>
+      <readMore :answer="answer.answer? answer.answer : ''"></readMore>
       <view class="bottom">
         <text>发布于{{answer.answerTime | formatTime }} ·</text>
         <text style="margin-left: 10rpx;">著作权归作者所有</text>
@@ -38,7 +37,7 @@
         question_id: '',
         answer_id: '',
         question: {
-          answers: []
+          // answers: []
         },
         answer: {
           answer: ''
@@ -122,10 +121,16 @@
           this.pos = 0
         } 
         if (this.nextClickCount >= len) {
-          console.log('这是最后一个答案啦')
+          uni.showToast({
+          	title: '这是最后一个答案啦',
+          	duration: 1000,
+            icon: 'none'
+          });
           return;
         } else {
           this.answer = this.question.answers[this.pos]
+          this.answer_id = this.question.answers[this.pos].answer_id
+          this.isLiked = this.likesAnswers.indexOf(this.answer_id) === -1 ? false : true
         }
         
       }

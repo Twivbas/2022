@@ -69,7 +69,7 @@
     },
     onLoad() {
       // 为了过审
-      const stringTime = "2022-09-21 12:00:00";
+      const stringTime = "2022-09-24 18:00:00";
       const endTime = new Date(stringTime).getTime()
       const time =new Date().getTime()
       // console.log('now', time)
